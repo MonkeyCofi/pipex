@@ -94,7 +94,7 @@ void	init_pipex(t_pipex *pip, char **envp, char **argv)
 	if (!pip->path)
 	{
 		cmds = ft_split(argv[2], '/');
-		path = ft_strjoin(cmds[0], "");
+		path = ft_strjoin("/", cmds[0]);
 		ft_free_split(cmds);
 		cmds = ft_split(argv[3], '/');
 		temp = path;

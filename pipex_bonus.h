@@ -34,7 +34,7 @@ typedef struct s_pipex
 	int		status;
 }	t_pipex;
 
-char	*get_path(char **envp);
+char	*get_path(char **envp, char **argv, int argc);
 char	*add_suffix(char *path, char *filename);
 char	**get_arguments(char *argv);
 char	*return_path(char *filename, char *path);

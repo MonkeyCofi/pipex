@@ -1,1 +1,44 @@
-hello there
+Makefile
+file2
+libft
+pipex
+pipex.c
+pipex.h
+pipex.o
+pipex_bonus.c
+pipex_bonus.h
+pipex_bonus.o
+pipex_exec_bonus.c
+pipex_exec_bonus.o
+pipex_heredoc_bonus.c
+pipex_heredoc_bonus.o
+pipex_utils.c
+pipex_utils.o
+pipex_utils_bonus.c
+pipex_utils_bonus.o
+test.c
+total 128
+drwxr-xr-x 5 piolo piolo  4096 Feb  2 02:04 .
+drwxr-xr-x 5 piolo piolo  4096 Feb  1 22:02 ..
+-rw-r--r-- 1 piolo piolo  8196 Feb  1 22:02 .DS_Store
+drwxr-xr-x 8 piolo piolo  4096 Feb  2 02:01 .git
+drwxr-xr-x 2 piolo piolo  4096 Feb  1 22:02 .vscode
+-rw-r--r-- 1 piolo piolo   688 Feb  1 22:02 Makefile
+-rw-r--r-- 1 piolo piolo   250 Feb  2 02:04 file2
+drwxr-xr-x 4 piolo piolo  4096 Feb  1 22:23 libft
+-rwxr-xr-x 1 piolo piolo 22376 Feb  2 02:03 pipex
+-rw-r--r-- 1 piolo piolo  3205 Feb  1 22:02 pipex.c
+-rw-r--r-- 1 piolo piolo  1496 Feb  1 22:02 pipex.h
+-rw-r--r-- 1 piolo piolo  4864 Feb  1 22:23 pipex.o
+-rw-r--r-- 1 piolo piolo  2339 Feb  1 22:02 pipex_bonus.c
+-rw-r--r-- 1 piolo piolo  1868 Feb  1 22:25 pipex_bonus.h
+-rw-r--r-- 1 piolo piolo  3864 Feb  1 22:23 pipex_bonus.o
+-rw-r--r-- 1 piolo piolo  2133 Feb  1 22:02 pipex_exec_bonus.c
+-rw-r--r-- 1 piolo piolo  3552 Feb  1 22:28 pipex_exec_bonus.o
+-rw-r--r-- 1 piolo piolo  2088 Feb  1 22:02 pipex_heredoc_bonus.c
+-rw-r--r-- 1 piolo piolo  3600 Feb  1 22:28 pipex_heredoc_bonus.o
+-rw-r--r-- 1 piolo piolo  2457 Feb  2 01:59 pipex_utils.c
+-rw-r--r-- 1 piolo piolo  3432 Feb  2 01:59 pipex_utils.o
+-rw-r--r-- 1 piolo piolo  2869 Feb  2 02:03 pipex_utils_bonus.c
+-rw-r--r-- 1 piolo piolo  3680 Feb  2 02:03 pipex_utils_bonus.o
+-rw-r--r-- 1 piolo piolo   114 Feb  1 22:02 test.c
