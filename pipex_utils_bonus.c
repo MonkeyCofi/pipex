@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:48:34 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/19 19:39:21 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:40:00 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*get_path(char **envp)
 			return (&envp[i][5]);
 		i++;
 	}
-	ft_putendl_fd("PATH not found", 2);
-	exit(EXIT_FAILURE);
+	return (NULL);
 }
 
 char	*add_suffix(char *path, char *filename)

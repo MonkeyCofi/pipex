@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:04:49 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/12 19:20:10 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:24:51 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
@@ -37,6 +38,6 @@ char	*get_path(char **envp);
 char	*add_suffix(char *path, char *filename);
 char	**get_arguments(char *argv);
 char	*return_path(char *filename, char *path);
-void	init_pipex(t_pipex *pip, char **envp);
+void	init_pipex(t_pipex *pip, char **envp, char **argv);
 
 #endif

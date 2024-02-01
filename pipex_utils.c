@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:03:46 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/21 16:27:28 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:36:57 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*get_path(char **envp)
 			return (&envp[i][5]);
 		i++;
 	}
-	ft_putendl_fd("PATH not found", 2);
-	exit(EXIT_FAILURE);
+	return (NULL);
+	//ft_putendl_fd("PATH not found", 2);
 }
 
 char	*return_path(char *filename, char *path)
@@ -79,14 +79,30 @@ char	*return_path(char *filename, char *path)
 	return (ft_strdup(filename));
 }
 
-void	init_pipex(t_pipex *pip, char **envp)
+void	init_pipex(t_pipex *pip, char **envp, char **argv)
 {
+	char	**cmds;
+	char	*path;
+	char	*temp;
+
 	pip->child1 = 0;
 	pip->child2 = 0;
 	pip->infile = 0;
 	pip->outfile = 0;
 	pip->cmds = NULL;
 	pip->path = get_path(envp);
+	if (!pip->path)
+	{
+		cmds = ft_split(argv[2], '/');
+		path = ft_strjoin(cmds[0], "");
+		ft_free_split(cmds);
+		cmds = ft_split(argv[3], '/');
+		temp = path;
+		path = ft_strjoin(":", temp);
+		pip->path = path;
+		free(temp);
+		ft_free_split(cmds);
+	}
 	pip->pipes[0] = 0;
 	pip->pipes[1] = 0;
 }

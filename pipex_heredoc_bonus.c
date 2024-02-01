@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:59:02 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/21 15:58:52 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:04:39 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void	parent_process_heredoc(int *pipes)
 {
 	wait(NULL);
 	close(pipes[1]);
-	dup2(pipes[0], STDIN_FILENO);
+	if (dup2(pipes[0], STDIN_FILENO) == -1)
+		exit(EXIT_FAILURE);
 	close(pipes[0]);
 }
 

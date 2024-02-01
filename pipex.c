@@ -6,12 +6,11 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:37:56 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/21 17:36:01 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:27:11 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <sys/wait.h>
 
 void	error_message(char *str, int perr_flag, int inv_cmd, char **args)
 {
@@ -34,6 +33,12 @@ void	error_message(char *str, int perr_flag, int inv_cmd, char **args)
 	}
 }
 
+void	ft_dup_and_check(int fd1, int fd2)
+{
+	if (dup2(fd1, fd2) == -1)
+		exit(EXIT_FAILURE);
+}
+
 void	child_1(t_pipex *pip, char **argv, char **envp)
 {
 	char	**args;
@@ -48,10 +53,11 @@ void	child_1(t_pipex *pip, char **argv, char **envp)
 		error_message("Couldn't get arguments", 0, 0, NULL);
 	cmd_path = return_path(args[0], pip->path);
 	close(pip->pipes[0]);
-	dup2(pip->infile, STDIN_FILENO);
+	ft_dup_and_check(pip->infile, STDIN_FILENO);
 	close(pip->infile);
-	dup2(pip->pipes[1], STDOUT_FILENO);
+	ft_dup_and_check(pip->pipes[1], STDOUT_FILENO);
 	exec_status = execve(cmd_path, args, envp);
+	printf("Execve status: %d\n", exec_status);
 	if (exec_status == -1)
 	{
 		free(cmd_path);
@@ -75,21 +81,15 @@ void	child_2(t_pipex *pip, char **argv, char **envp, int argc)
 	if (!args)
 		exit(EXIT_FAILURE);
 	close(pip->pipes[1]);
-	dup2(pip->outfile, STDOUT_FILENO);
+	ft_dup_and_check(pip->outfile, STDOUT_FILENO);
 	close(pip->outfile);
-	dup2(pip->pipes[0], STDIN_FILENO);
+	ft_dup_and_check(pip->pipes[0], STDIN_FILENO);
 	exec_status = execve(cmd_path, args, envp);
 	if (exec_status == -1)
 	{
 		free(cmd_path);
 		error_message(NULL, 0, 1, args);
 	}
-}
-
-void	close_pipes(t_pipex *pip)
-{
-	close(pip->pipes[0]);
-	close(pip->pipes[1]);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Invalid number of arguments", 2);
 		exit(EXIT_FAILURE);
 	}
-	init_pipex(&pip, envp);
+	init_pipex(&pip, envp, argv);
 	pipe(pip.pipes);
 	pip.child1 = fork();
 	if (pip.child1 == 0)
@@ -110,7 +110,8 @@ int	main(int argc, char **argv, char **envp)
 	pip.child2 = fork();
 	if (pip.child2 == 0)
 		child_2(&pip, argv, envp, argc);
-	close_pipes(&pip);
+	close(pip.pipes[0]);
+	close(pip.pipes[1]);
 	waitpid(pip.child1, &status, 0);
 	waitpid(pip.child2, &status, 0);
 	exit(WEXITSTATUS(status));
