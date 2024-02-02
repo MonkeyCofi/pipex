@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:37:56 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/01 19:27:11 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:29:09 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	error_message(char *str, int perr_flag, int inv_cmd, char **args)
 	}
 }
 
-void	ft_dup_and_check(int fd1, int fd2)
+static void	ft_dup_and_check(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
-		exit(EXIT_FAILURE);
+		error_message(NULL, 1, 0, 0);
 }
 
-void	child_1(t_pipex *pip, char **argv, char **envp)
+static void	child_1(t_pipex *pip, char **argv, char **envp)
 {
 	char	**args;
 	char	*cmd_path;
@@ -48,16 +48,19 @@ void	child_1(t_pipex *pip, char **argv, char **envp)
 	pip->infile = open(argv[1], O_RDONLY);
 	if (pip->infile < 0)
 		error_message(argv[1], 1, 0, NULL);
-	args = get_arguments(argv[2]);
+	args = ft_split(argv[2], ' ');
 	if (!args)
 		error_message("Couldn't get arguments", 0, 0, NULL);
+	if (pip->empty_path)
+		pip->path = no_path(argv, 2);
 	cmd_path = return_path(args[0], pip->path);
+	//if (pip->empty_path)
+	//	free(pip->path);
 	close(pip->pipes[0]);
 	ft_dup_and_check(pip->infile, STDIN_FILENO);
 	close(pip->infile);
 	ft_dup_and_check(pip->pipes[1], STDOUT_FILENO);
 	exec_status = execve(cmd_path, args, envp);
-	printf("Execve status: %d\n", exec_status);
 	if (exec_status == -1)
 	{
 		free(cmd_path);
@@ -65,7 +68,7 @@ void	child_1(t_pipex *pip, char **argv, char **envp)
 	}
 }
 
-void	child_2(t_pipex *pip, char **argv, char **envp, int argc)
+static void	child_2(t_pipex *pip, char **argv, char **envp, int argc)
 {
 	char	**args;
 	char	*cmd_path;
@@ -74,12 +77,14 @@ void	child_2(t_pipex *pip, char **argv, char **envp, int argc)
 	pip->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (pip->outfile < 0)
 		error_message(argv[argc - 1], 1, 0, NULL);
-	args = get_arguments(argv[3]);
+	args = ft_split(argv[3], ' ');
 	if (!args)
 		error_message("Couldn't get arguments", 0, 0, NULL);
+	if (pip->empty_path)
+		pip->path = no_path(argv, 3);
 	cmd_path = return_path(args[0], pip->path);
-	if (!args)
-		exit(EXIT_FAILURE);
+	//if (pip->empty_path)
+	//	free(pip->path);
 	close(pip->pipes[1]);
 	ft_dup_and_check(pip->outfile, STDOUT_FILENO);
 	close(pip->outfile);
@@ -102,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Invalid number of arguments", 2);
 		exit(EXIT_FAILURE);
 	}
-	init_pipex(&pip, envp, argv);
+	init_pipex(&pip, envp);
 	pipe(pip.pipes);
 	pip.child1 = fork();
 	if (pip.child1 == 0)

@@ -6,21 +6,51 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:03:46 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/01 19:36:57 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:28:56 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**get_arguments(char *argv)
+char	*no_path(char **argv, int i)
 {
-	char	**args;
+	//char	*str;
 
-	args = ft_split(argv, ' ');
-	if (!args)
-		return (NULL);
-	return (args);
+	//str = ft_substr(argv[i], 0, ft_strlen(ft_strchr(&argv[i][1], '/')) - ft_strlen(argv[i]));
+	//ft_printf("%s\n", ft_substr(argv[i], 0, ft_strlen(ft_strchr(&argv[i][1], '/')) - ft_strlen(argv[i])));
+	//if (!str)
+	//	error_message(str, 1, 0, NULL);
+	//ft_printf("PATH: %s\n", str);
+	//return (str);
+	return (argv[i]);
 }
+
+//char	*no_path(char **argv)
+//{
+//	int		i;
+//	char	*path;
+//	char	*temp;
+//	char	*temp2;
+//	char	**cmd;
+
+//	i = 2;
+//	temp2 = NULL;
+//	while (i <= 3)
+//	{
+//		if (temp2)
+//			free(temp2);
+//		cmd = ft_split(argv[i++], '/');
+//		if (!cmd)
+//			error_message(NULL, 1, 0, NULL);
+//		path = ft_strjoin("/", cmd[0]);
+//		temp = path;
+//		free(temp);
+//		path = ft_strjoin(path, ":");
+//		ft_free_split(cmd);
+//		temp2 = path;
+//	}
+//	return (path);
+//}
 
 char	*add_suffix(char *path, char *filename)
 {
@@ -52,7 +82,6 @@ char	*get_path(char **envp)
 		i++;
 	}
 	return (NULL);
-	//ft_putendl_fd("PATH not found", 2);
 }
 
 char	*return_path(char *filename, char *path)
@@ -79,30 +108,17 @@ char	*return_path(char *filename, char *path)
 	return (ft_strdup(filename));
 }
 
-void	init_pipex(t_pipex *pip, char **envp, char **argv)
+void	init_pipex(t_pipex *pip, char **envp)
 {
-	char	**cmds;
-	char	*path;
-	char	*temp;
-
 	pip->child1 = 0;
 	pip->child2 = 0;
 	pip->infile = 0;
 	pip->outfile = 0;
-	pip->cmds = NULL;
 	pip->path = get_path(envp);
 	if (!pip->path)
-	{
-		cmds = ft_split(argv[2], '/');
-		path = ft_strjoin("/", cmds[0]);
-		ft_free_split(cmds);
-		cmds = ft_split(argv[3], '/');
-		temp = path;
-		path = ft_strjoin(":", temp);
-		pip->path = path;
-		free(temp);
-		ft_free_split(cmds);
-	}
+		pip->empty_path = 1;
+	else
+		pip->empty_path = 0;
 	pip->pipes[0] = 0;
 	pip->pipes[1] = 0;
 }

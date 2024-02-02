@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:48:34 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/01 18:40:00 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:37:52 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*return_path(char *filename, char *path)
 		free(new_filename);
 	}
 	ft_free_split(paths);
+	ft_printf("%s\n", filename);
 	return (ft_strdup(filename));
 }
 

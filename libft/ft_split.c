@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:52:28 by pipolint          #+#    #+#             */
-/*   Updated: 2023/11/12 13:51:29 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:46:30 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ static void	add_words(char **words, char *s, char c)
 		{
 			word = (char *)malloc(sizeof(char) * (get_length(s, c) + 1));
 			if (!word)
+			{
+				ft_free_split(words);
 				return ;
+			}
 			while (*s != c && *s)
 				word[i++] = *s++;
 			word[i] = '\0';
