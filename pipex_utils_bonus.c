@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:48:34 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/02 12:37:52 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:01:45 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ char	*get_path(char **envp, char **argv, int argc)
 			return (&envp[i][5]);
 		i++;
 	}
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		i = 2;
-	else
-		i = 1;
-	while (++i && i < argc - 1)
-	{
-		cmds = ft_split(argv[i], '/');
-		path = ft_strjoin("/", cmds[0]);
-		ft_free_split(cmds);
-		temp = path;
-		path = ft_strjoin(temp, ":");
-		free(temp);
-	}
+	//if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+	//	i = 2;
+	//else
+	//	i = 1;
+	//while (++i && i < argc - 1)
+	//{
+	//	cmds = ft_split(argv[i], '/');
+	//	path = ft_strjoin("/", cmds[0]);
+	//	ft_free_split(cmds);
+	//	temp = path;
+	//	path = ft_strjoin(temp, ":");
+	//	free(temp);
+	//}
 	return (path);
 }
 
@@ -81,7 +81,6 @@ char	*return_path(char *filename, char *path)
 		free(new_filename);
 	}
 	ft_free_split(paths);
-	ft_printf("%s\n", filename);
 	return (ft_strdup(filename));
 }
 
