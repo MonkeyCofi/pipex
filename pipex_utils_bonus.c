@@ -6,18 +6,15 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:48:34 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/17 16:41:08 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:21:50 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-char	*get_path(char **envp, char **argv, int argc)
+char	*get_path(char **envp)
 {
 	int		i;
-	char	**cmds;
-	char	*path;
-	char	*temp;
 
 	i = 0;
 	while (envp[i])
@@ -26,22 +23,7 @@ char	*get_path(char **envp, char **argv, int argc)
 			return (&envp[i][5]);
 		i++;
 	}
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		i = 2;
-	else
-		i = 1;
-	while (++i && i < argc - 1)
-	{
-		cmds = ft_split(argv[i], '/');
-		path = ft_strjoin("/", cmds[0]);
-		ft_free_split(cmds);
-		temp = path;
-		path = ft_strjoin(temp, ":");
-		free(temp);
-	}
-	//(void)argc;
-	//(void)argv;
-	return (path);
+	return (NULL);
 }
 
 char	*add_suffix(char *path, char *filename)
@@ -68,6 +50,8 @@ char	*return_path(char *filename, char *path)
 	char	*new_filename;
 	int		i;
 
+	if (!path)
+		path = filename;
 	paths = ft_split(path, ':');
 	if (!paths)
 		return (NULL);
@@ -89,7 +73,7 @@ char	*return_path(char *filename, char *path)
 void	init_pipex(t_pipex *pip, char **argv, char **envp, int argc)
 {
 	pip->args = argv;
-	pip->path = get_path(envp, argv, argc);
+	pip->path = get_path(envp);
 	pip->cmd_path = NULL;
 	pip->heredoc_flag = 0;
 	pip->infile = 0;

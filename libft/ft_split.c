@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:52:28 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/02 14:46:30 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:28:35 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,30 @@ static int	get_length(const char *s, char c)
 
 static void	add_words(char **words, char *s, char c)
 {
-	char	*word;
-	int		current_word;
+	int		count;
 	int		i;
 
-	current_word = 0;
+	count = -1;
 	while (*s)
 	{
-		i = 0;
 		if (*s != c)
 		{
-			word = (char *)malloc(sizeof(char) * (get_length(s, c) + 1));
-			if (!word)
+			words[++count] = malloc(sizeof(char) * \
+				(get_length((const char *)s, c) + 1));
+			if (!words[count])
 			{
 				ft_free_split(words);
 				return ;
 			}
-			while (*s != c && *s)
-				word[i++] = *s++;
-			word[i] = '\0';
-			words[current_word++] = ft_strdup(word);
-			free(word);
+			i = 0;
+			while (*s && *s != c)
+				words[count][i++] = *s++;
+			words[count][i] = '\0';
 		}
 		else
 			s++;
 	}
-	words[current_word] = 0;
+	words[count + 1] = 0;
 }
 
 char	**ft_split(char const *s, char c)

@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:32:20 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/17 19:15:47 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:27:08 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_cmd(t_pipex *pip)
 	{
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putendl_fd(pip->cmd[0], 2);
-		free(pip->cmd);
+		ft_free_split(pip->cmd);
 		free(pip->cmd_path);
 		free(pip->pids);
 		exit(127);

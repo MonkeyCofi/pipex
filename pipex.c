@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:37:56 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/02 15:29:09 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:15:26 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	child_1(t_pipex *pip, char **argv, char **envp)
 	if (pip->empty_path)
 		pip->path = no_path(argv, 2);
 	cmd_path = return_path(args[0], pip->path);
-	//if (pip->empty_path)
-	//	free(pip->path);
 	close(pip->pipes[0]);
 	ft_dup_and_check(pip->infile, STDIN_FILENO);
 	close(pip->infile);
@@ -83,8 +81,6 @@ static void	child_2(t_pipex *pip, char **argv, char **envp, int argc)
 	if (pip->empty_path)
 		pip->path = no_path(argv, 3);
 	cmd_path = return_path(args[0], pip->path);
-	//if (pip->empty_path)
-	//	free(pip->path);
 	close(pip->pipes[1]);
 	ft_dup_and_check(pip->outfile, STDOUT_FILENO);
 	close(pip->outfile);

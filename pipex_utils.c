@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:03:46 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/02 15:28:56 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:55:47 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,8 @@
 
 char	*no_path(char **argv, int i)
 {
-	//char	*str;
-
-	//str = ft_substr(argv[i], 0, ft_strlen(ft_strchr(&argv[i][1], '/')) - ft_strlen(argv[i]));
-	//ft_printf("%s\n", ft_substr(argv[i], 0, ft_strlen(ft_strchr(&argv[i][1], '/')) - ft_strlen(argv[i])));
-	//if (!str)
-	//	error_message(str, 1, 0, NULL);
-	//ft_printf("PATH: %s\n", str);
-	//return (str);
 	return (argv[i]);
 }
-
-//char	*no_path(char **argv)
-//{
-//	int		i;
-//	char	*path;
-//	char	*temp;
-//	char	*temp2;
-//	char	**cmd;
-
-//	i = 2;
-//	temp2 = NULL;
-//	while (i <= 3)
-//	{
-//		if (temp2)
-//			free(temp2);
-//		cmd = ft_split(argv[i++], '/');
-//		if (!cmd)
-//			error_message(NULL, 1, 0, NULL);
-//		path = ft_strjoin("/", cmd[0]);
-//		temp = path;
-//		free(temp);
-//		path = ft_strjoin(path, ":");
-//		ft_free_split(cmd);
-//		temp2 = path;
-//	}
-//	return (path);
-//}
 
 char	*add_suffix(char *path, char *filename)
 {

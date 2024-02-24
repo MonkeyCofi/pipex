@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:23:37 by pipolint          #+#    #+#             */
-/*   Updated: 2024/01/21 15:45:33 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:57:15 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_pipex
 	int		status;
 }	t_pipex;
 
-char	*get_path(char **envp, char **argv, int argc);
+char	*get_path(char **envp);
 char	*add_suffix(char *path, char *filename);
 char	**get_arguments(char *argv);
 char	*return_path(char *filename, char *path);

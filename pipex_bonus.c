@@ -6,7 +6,7 @@
 /*   By: pipolint <pipolint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:23:27 by pipolint          #+#    #+#             */
-/*   Updated: 2024/02/17 19:13:29 by pipolint         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:27:42 by pipolint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 	index = -1;
 	init_pipex(&pip, argv, envp, argc);
 	check_heredoc(&pip, argc);
-	pip.pids = malloc(sizeof(int) * (pip.cmds));
+	pip.pids = malloc(sizeof(pid_t) * (pip.cmds));
 	if (!pip.pids)
 		error_message("Couldn't allocate memory for PIDs", 1, 0);
 	if (pip.heredoc_flag)
